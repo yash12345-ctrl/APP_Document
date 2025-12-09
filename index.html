@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoBreeze App Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-dart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+        
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #4ade80, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-300 font-sans antialiased selection:bg-teal-500 selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-anchor text-teal-400 text-2xl"></i>
+                    <span class="text-xl font-bold text-white tracking-wide">LingoBreeze <span class="text-teal-400">Docs</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <a href="https://flutter.dev" target="_blank" class="text-sm font-medium text-slate-400 hover:text-teal-400 transition">Built with Flutter</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex h-screen pt-16">
+        <aside class="w-64 fixed h-full bg-slate-900 border-r border-slate-800 hidden lg:block overflow-y-auto">
+            <div class="p-6">
+                <h3 class="text-xs uppercase text-slate-500 font-bold tracking-wider mb-4">Table of Contents</h3>
+                <nav class="space-y-1">
+                    <a href="#introduction" class="nav-link block px-3 py-2 rounded-md text-sm font-medium bg-slate-800 text-teal-400 border-l-4 border-teal-400">Introduction</a>
+                    <a href="#assets" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">1. Assets & Setup</a>
+                    <a href="#main-dart" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">2. Welcome Screen</a>
+                    <a href="#moksh-screen" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">3. Moksh Screen</a>
+                    <a href="#quest-screen" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">4. Quest Screen</a>
+                    <a href="#journey-screen" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">5. Journey Screen</a>
+                    <a href="#language-screen" class="nav-link block px-3 py-2 rounded-md text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition">6. Language Selection</a>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="flex-1 lg:ml-64 p-6 lg:p-10 overflow-y-auto">
+            
+            <section id="introduction" class="mb-16 scroll-mt-24">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6">
+                    Building the <span class="text-gradient">LingoBreeze App</span>
+                </h1>
+                <p class="text-lg leading-relaxed text-slate-400">
+                    This documentation outlines the complete process of building the LingoBreeze Flutter application. It includes step-by-step instructions on setting up assets, configuring dependencies, and the full source code for the complex animations and Text-to-Speech (TTS) integrations we implemented.
+                </p>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-slate-800 rounded-xl border border-slate-700">
+                        <i class="fa-solid fa-wand-magic-sparkles text-teal-400 text-3xl mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">Advanced Animations</h3>
+                        <p class="text-sm text-slate-400">Custom <code>AnimationController</code> logic for flying, bobbing, and pulsing effects.</p>
+                    </div>
+                    <div class="p-6 bg-slate-800 rounded-xl border border-slate-700">
+                        <i class="fa-solid fa-volume-high text-teal-400 text-3xl mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">Text-to-Speech</h3>
+                        <p class="text-sm text-slate-400">Integrated <code>flutter_tts</code> to provide audio feedback on every screen transition.</p>
+                    </div>
+                    <div class="p-6 bg-slate-800 rounded-xl border border-slate-700">
+                        <i class="fa-solid fa-layer-group text-teal-400 text-3xl mb-4"></i>
+                        <h3 class="text-white font-bold text-lg mb-2">Layered UI</h3>
+                        <p class="text-sm text-slate-400">Complex <code>Stack</code> layouts with gradients, SVGs, and custom clippers.</p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="border-slate-800 mb-16">
+
+            <section id="assets" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">1</span>
+                    Assets & Dependencies
+                </h2>
+                <p class="mb-4">First, update your <code>pubspec.yaml</code> to include the TTS package and register your image assets.</p>
+                
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden mb-6">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">pubspec.yaml</span>
+                        <button onclick="copyToClipboard('code-yaml')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy</button>
+                    </div>
+                    <pre><code id="code-yaml" class="language-yaml">dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_tts: ^3.8.3  # Required for audio
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/pirate_frog.png
+    - assets/guru_moksh.png
+    - assets/pirate_man.png
+    - assets/frog_in_boat.png
+    - assets/speech_bubble.png
+    - assets/waves.png</code></pre>
+                </div>
+                
+                <div class="p-4 bg-yellow-500/10 border border-yellow-500/20 rounded-lg">
+                    <p class="text-yellow-200 text-sm"><i class="fa-solid fa-triangle-exclamation mr-2"></i> <strong>Important:</strong> Ensure you create an <code>assets</code> folder in your project root and place all the required PNG images inside it before running the app.</p>
+                </div>
+            </section>
+
+            <section id="main-dart" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">2</span>
+                    Welcome Screen (main.dart)
+                </h2>
+                <p class="mb-4">This acts as the entry point. It features the "AHOY!" waving text and the floating Pirate Frog. It speaks "Welcome aboard!" upon entry.</p>
+                
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">lib/main.dart</span>
+                        <button onclick="copyToClipboard('code-main')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy Code</button>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto">
+<pre><code id="code-main" class="language-dart">import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
+import 'moksh_screen.dart';
+
+void main() {
+  runApp(const HoppieApp());
+}
+
+class HoppieApp extends StatelessWidget {
+  const HoppieApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Hoppie UI Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+        useMaterial3: true,
+      ),
+      home: const HoppieWelcomeScreen(),
+    );
+  }
+}
+
+class HoppieWelcomeScreen extends StatefulWidget {
+  const HoppieWelcomeScreen({super.key});
+
+  @override
+  State<HoppieWelcomeScreen> createState() => _HoppieWelcomeScreenState();
+}
+
+class _HoppieWelcomeScreenState extends State<HoppieWelcomeScreen> with TickerProviderStateMixin {
+  static const Color _darkBlueTop = Color(0xFF050914);
+  static const Color _darkBlueBottom = Color(0xFF0B152E);
+  static const Color _themeGreen = Color(0xFF387C24);
+  static const Color _buttonBorderColor = Color(0xFF03070E);
+
+  late AnimationController _entryController;
+  late AnimationController _floatController;
+  late AnimationController _pulseController;
+
+  late Animation<double> _fadeAnimation;
+  late Animation<Offset> _slideAnimation;
+  late Animation<double> _pulseAnimation;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+
+    _fadeAnimation = CurvedAnimation(
+      parent: _entryController,
+      curve: Curves.easeOut,
+    );
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+      parent: _entryController,
+      curve: Curves.easeOutQuart,
+    ));
+
+    _entryController.forward();
+
+    _floatController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: false);
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(
+      CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
+    );
+
+    _speakWelcome();
+  }
+
+  Future<void> _speakWelcome() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.speak("Welcome aboard!");
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _floatController.dispose();
+    _pulseController.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Widget _buildWavyText(String text, TextStyle style) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: text.split('').asMap().entries.map((entry) {
+        int index = entry.key;
+        String char = entry.value;
+        
+        return AnimatedBuilder(
+          animation: _floatController,
+          builder: (context, child) {
+            double offsetY = 6.0 * math.sin((_floatController.value * 2 * math.pi) + (index * 0.5));
+            return Transform.translate(
+              offset: Offset(0, offsetY),
+              child: Text(char, style: style),
+            );
+          },
+        );
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [_darkBlueTop, _darkBlueBottom],
+                stops: [0.0, 0.7],
+              ),
+            ),
+          ),
+
+          Positioned.fill(
+            bottom: 100,
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: SlideTransition(
+                position: _slideAnimation,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildWavyText(
+                      'AHOY!',
+                      const TextStyle(
+                        color: Colors.white,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 3.0,
+                      ),
+                    ),
+                    
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Welcome aboard!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+                    const Text(
+                      'Learn Language as you sail\nthrough islands of\nadventure!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        height: 1.5,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 40),
+
+                    AnimatedBuilder(
+                      animation: _floatController,
+                      builder: (context, child) {
+                        return Transform.translate(
+                          offset: Offset(0, 10 * math.sin(_floatController.value * 2 * math.pi)),
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/pirate_frog.png',
+                        height: 180,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+
+                    const SizedBox(height: 30),
+                    const Text(
+                      'HOPPIE',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: SizedBox(
+              height: 140,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: ClipPath(
+                      clipper: BottomHumpClipper(),
+                      child: Container(
+                        width: screenSize.width,
+                        height: 100,
+                        color: _themeGreen,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: ScaleTransition(
+                      scale: _pulseAnimation,
+                      child: Container(
+                        height: 75,
+                        width: 75,
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: _themeGreen,
+                            boxShadow: [
+                              BoxShadow(
+                                color: _buttonBorderColor.withOpacity(0.8),
+                                spreadRadius: 8,
+                                blurRadius: 15,
+                                offset: const Offset(0, 2),
+                              )
+                            ],
+                            border: Border.all(color: _themeGreen, width: 2)),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const MokshScreen(),
+                                ),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                              size: 36,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomHumpClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(0, size.height * 0.4);
+
+    path.quadraticBezierTo(
+        size.width / 2,
+        -size.height * 0.6,
+        size.width,
+        size.height * 0.4
+        );
+
+    path.lineTo(size.width, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="moksh-screen" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">3</span>
+                    Moksh Screen
+                </h2>
+                <p class="mb-4">This screen introduces the Guru. The elements "fly in" with staggered animation timings. It speaks "Focus your mind!".</p>
+                <ul class="list-disc pl-5 mb-6 text-slate-400 space-y-1">
+                    <li>Uses <code>Interval</code> curves for staggered entrance.</li>
+                    <li>Navigates to <code>QuestScreen</code>.</li>
+                </ul>
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">lib/moksh_screen.dart</span>
+                        <button onclick="copyToClipboard('code-moksh')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy Code</button>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto">
+                        <pre><code id="code-moksh" class="language-dart">import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
+import 'quest_screen.dart';
+
+class MokshScreen extends StatefulWidget {
+  const MokshScreen({super.key});
+
+  @override
+  State<MokshScreen> createState() => _MokshScreenState();
+}
+
+class _MokshScreenState extends State<MokshScreen> with TickerProviderStateMixin {
+  static const Color _darkBlueTop = Color(0xFF050914);
+  static const Color _darkBlueBottom = Color(0xFF0B152E);
+  static const Color _themeGreen = Color(0xFF387C24);
+  static const Color _arrowColor = Color(0xFFC77E4B);
+
+  late AnimationController _entryController;
+  late AnimationController _floatController;
+  late AnimationController _pulseController;
+
+  late Animation<Offset> _titleSlide;
+  late Animation<double> _titleFade;
+
+  late Animation<Offset> _descSlide;
+  late Animation<double> _descFade;
+
+  late Animation<Offset> _imageSlide;
+  late Animation<double> _imageFade;
+
+  late Animation<Offset> _nameSlide;
+  late Animation<double> _nameFade;
+
+  late Animation<double> _pulseAnimation;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+
+    _titleSlide = Tween<Offset>(begin: const Offset(0, -1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutBack),
+      ),
+    );
+    _titleFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
+    );
+
+    _descSlide = Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.2, 0.7, curve: Curves.easeOutQuart),
+      ),
+    );
+    _descFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.2, 0.5, curve: Curves.easeOut),
+      ),
+    );
+
+    _imageSlide = Tween<Offset>(begin: const Offset(0, 1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.4, 0.9, curve: Curves.elasticOut),
+      ),
+    );
+    _imageFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.4, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _nameSlide = Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 1.0, curve: Curves.easeOutBack),
+      ),
+    );
+    _nameFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 0.8, curve: Curves.easeOut),
+      ),
+    );
+
+    _entryController.forward();
+
+    _floatController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: false);
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1)
+        .animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+
+    _speakFocus();
+  }
+
+  Future<void> _speakFocus() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.speak("Focus your mind!");
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _floatController.dispose();
+    _pulseController.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Widget _buildWavyText(String text, TextStyle style) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: text.split('').asMap().entries.map((entry) {
+        return AnimatedBuilder(
+          animation: _floatController,
+          builder: (context, child) {
+            double offsetY = 6.0 * math.sin((_floatController.value * 2 * math.pi) + (entry.key * 0.5));
+            return Transform.translate(offset: Offset(0, offsetY), child: child);
+          },
+          child: Text(entry.value, style: style),
+        );
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [_darkBlueTop, _darkBlueBottom],
+                stops: [0.0, 0.7],
+              ),
+            ),
+          ),
+          Positioned.fill(
+            bottom: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SlideTransition(
+                  position: _titleSlide,
+                  child: FadeTransition(
+                    opacity: _titleFade,
+                    child: Column(
+                      children: [
+                        _buildWavyText(
+                          'FOCUS!',
+                          const TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'Your Mind!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SlideTransition(
+                  position: _descSlide,
+                  child: FadeTransition(
+                    opacity: _descFade,
+                    child: const Text(
+                      'Master words, unlock\ntreasures and level up your\njourney.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        height: 1.5,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 40),
+                SlideTransition(
+                  position: _imageSlide,
+                  child: FadeTransition(
+                    opacity: _imageFade,
+                    child: AnimatedBuilder(
+                      animation: _floatController,
+                      builder: (context, child) {
+                        return Transform.translate(
+                          offset: Offset(0, 10 * math.sin(_floatController.value * 2 * math.pi)),
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/guru_moksh.png',
+                        height: 200,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+                SlideTransition(
+                  position: _nameSlide,
+                  child: FadeTransition(
+                    opacity: _nameFade,
+                    child: const Text(
+                      'MOKSH',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 0, left: 0, right: 0,
+            child: SizedBox(
+              height: 140,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: ClipPath(
+                      clipper: BottomHumpClipper(),
+                      child: Container(
+                        width: screenSize.width,
+                        height: 100,
+                        color: _themeGreen,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: ScaleTransition(
+                      scale: _pulseAnimation,
+                      child: Container(
+                        height: 75, width: 75,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _themeGreen,
+                          border: Border.all(color: _themeGreen, width: 2),
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const QuestScreen()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.arrow_forward_rounded,
+                              color: Colors.white,
+                              size: 36,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomHumpClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(0, size.height * 0.4);
+    path.quadraticBezierTo(
+        size.width / 2, -size.height * 0.6, size.width, size.height * 0.4);
+    path.lineTo(size.width, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="quest-screen" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">4</span>
+                    Quest Screen
+                </h2>
+                <p class="mb-4">Displays the Pirate Man. Features a white arrow button and speaks "Prepare for the quest!".</p>
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">lib/quest_screen.dart</span>
+                        <button onclick="copyToClipboard('code-quest')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy Code</button>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto">
+                        <pre><code id="code-quest" class="language-dart">import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
+import 'journey_screen.dart';
+
+class QuestScreen extends StatefulWidget {
+  const QuestScreen({super.key});
+
+  @override
+  State<QuestScreen> createState() => _QuestScreenState();
+}
+
+class _QuestScreenState extends State<QuestScreen> with TickerProviderStateMixin {
+  static const Color _darkBlueTop = Color(0xFF050914);
+  static const Color _darkBlueBottom = Color(0xFF0B152E);
+  static const Color _themeGreen = Color(0xFF387C24);
+  static const Color _buttonColor = Colors.white;
+  static const Color _arrowColor = Colors.black;
+
+  late AnimationController _entryController;
+  late AnimationController _floatController;
+  late AnimationController _pulseController;
+
+  late Animation<Offset> _titleSlide;
+  late Animation<double> _titleFade;
+
+  late Animation<Offset> _descSlide;
+  late Animation<double> _descFade;
+
+  late Animation<Offset> _imageSlide;
+  late Animation<double> _imageFade;
+
+  late Animation<Offset> _nameSlide;
+  late Animation<double> _nameFade;
+
+  late Animation<double> _pulseAnimation;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+
+    _titleSlide = Tween<Offset>(begin: const Offset(0, -1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutBack),
+      ),
+    );
+    _titleFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
+    );
+
+    _descSlide = Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.2, 0.7, curve: Curves.easeOutQuart),
+      ),
+    );
+    _descFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.2, 0.5, curve: Curves.easeOut),
+      ),
+    );
+
+    _imageSlide = Tween<Offset>(begin: const Offset(0, 1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.4, 0.9, curve: Curves.elasticOut),
+      ),
+    );
+    _imageFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.4, 0.6, curve: Curves.easeOut),
+      ),
+    );
+
+    _nameSlide = Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 1.0, curve: Curves.easeOutBack),
+      ),
+    );
+    _nameFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 0.8, curve: Curves.easeOut),
+      ),
+    );
+
+    _entryController.forward();
+
+    _floatController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: false);
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.1)
+        .animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+
+    _speakQuest();
+  }
+
+  Future<void> _speakQuest() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.speak("Prepare for the quest!");
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _floatController.dispose();
+    _pulseController.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Widget _buildWavyText(String text, TextStyle style) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: text.split('').asMap().entries.map((entry) {
+        return AnimatedBuilder(
+          animation: _floatController,
+          builder: (context, child) {
+            double offsetY = 6.0 * math.sin((_floatController.value * 2 * math.pi) + (entry.key * 0.5));
+            return Transform.translate(offset: Offset(0, offsetY), child: child);
+          },
+          child: Text(entry.value, style: style),
+        );
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [_darkBlueTop, _darkBlueBottom],
+                stops: [0.0, 0.7],
+              ),
+            ),
+          ),
+          
+          Positioned.fill(
+            bottom: 100,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SlideTransition(
+                  position: _titleSlide,
+                  child: FadeTransition(
+                    opacity: _titleFade,
+                    child: Column(
+                      children: [
+                        _buildWavyText(
+                          'PREPARE!',
+                          const TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'For the Quest!',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+
+                SlideTransition(
+                  position: _descSlide,
+                  child: FadeTransition(
+                    opacity: _descFade,
+                    child: const Text(
+                      'Face tougher challenges,\nearn rare rewards & rise as a\ntrue language warrior.',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        height: 1.5,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 40),
+                
+                SlideTransition(
+                  position: _imageSlide,
+                  child: FadeTransition(
+                    opacity: _imageFade,
+                    child: AnimatedBuilder(
+                      animation: _floatController,
+                      builder: (context, child) {
+                        return Transform.translate(
+                          offset: Offset(0, 10 * math.sin(_floatController.value * 2 * math.pi)),
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/pirate_man.png',
+                        height: 200,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                SlideTransition(
+                  position: _nameSlide,
+                  child: FadeTransition(
+                    opacity: _nameFade,
+                    child: const Text(
+                      'MOKSH',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Positioned(
+            bottom: 0, left: 0, right: 0,
+            child: SizedBox(
+              height: 140,
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Positioned(
+                    bottom: 0,
+                    child: ClipPath(
+                      clipper: BottomHumpClipper(),
+                      child: Container(
+                        width: screenSize.width,
+                        height: 100,
+                        color: _themeGreen,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 0,
+                    child: ScaleTransition(
+                      scale: _pulseAnimation,
+                      child: Container(
+                        height: 75, width: 75,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _buttonColor,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 4,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            )
+                          ],
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            customBorder: const CircleBorder(),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const JourneyScreen()),
+                              );
+                            },
+                            child: const Icon(
+                              Icons.arrow_forward_rounded,
+                              color: _arrowColor,
+                              size: 36,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BottomHumpClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(0, size.height * 0.4);
+    path.quadraticBezierTo(
+        size.width / 2, -size.height * 0.6, size.width, size.height * 0.4);
+    path.lineTo(size.width, size.height);
+    path.close();
+    return path;
+  }
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="journey-screen" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">5</span>
+                    Journey Screen
+                </h2>
+                <p class="mb-4">Features the Pirate Frog inside a circular container. The button style changes to a wide "Let's Get Started" pill shape. Audio: "Journey Awaits!".</p>
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">lib/journey_screen.dart</span>
+                        <button onclick="copyToClipboard('code-journey')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy Code</button>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto">
+                        <pre><code id="code-journey" class="language-dart">import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
+import 'language_selection_screen.dart';
+
+class JourneyScreen extends StatefulWidget {
+  const JourneyScreen({super.key});
+
+  @override
+  State<JourneyScreen> createState() => _JourneyScreenState();
+}
+
+class _JourneyScreenState extends State<JourneyScreen> with TickerProviderStateMixin {
+  static const Color _darkBlueTop = Color(0xFF050914);
+  static const Color _darkBlueBottom = Color(0xFF0B152E);
+  static const Color _cyanTextColor = Color(0xFF40E0D0);
+
+  late AnimationController _entryController;
+  late AnimationController _floatController;
+  late AnimationController _pulseController;
+
+  late Animation<Offset> _titleSlide;
+  late Animation<double> _titleFade;
+
+  late Animation<Offset> _imageSlide;
+  late Animation<double> _imageFade;
+
+  late Animation<Offset> _textSlide;
+  late Animation<double> _textFade;
+
+  late Animation<Offset> _buttonSlide;
+  late Animation<double> _buttonFade;
+
+  late Animation<double> _pulseAnimation;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+
+    _titleSlide = Tween<Offset>(begin: const Offset(0, -1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.5, curve: Curves.easeOutBack),
+      ),
+    );
+    _titleFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
+    );
+
+    _imageSlide = Tween<Offset>(begin: const Offset(0, 1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.3, 0.8, curve: Curves.elasticOut),
+      ),
+    );
+    _imageFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.3, 0.5, curve: Curves.easeOut),
+      ),
+    );
+
+    _textSlide = Tween<Offset>(begin: const Offset(0, 1.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 0.9, curve: Curves.easeOutBack),
+      ),
+    );
+    _textFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 0.8, curve: Curves.easeOut),
+      ),
+    );
+
+    _buttonSlide = Tween<Offset>(begin: const Offset(0, 2.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.7, 1.0, curve: Curves.easeOutQuart),
+      ),
+    );
+    _buttonFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.7, 0.9, curve: Curves.easeOut),
+      ),
+    );
+
+    _entryController.forward();
+
+    _floatController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    )..repeat(reverse: false);
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05)
+        .animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+
+    _speakJourney();
+  }
+
+  Future<void> _speakJourney() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.speak("Journey Awaits!");
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _floatController.dispose();
+    _pulseController.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Widget _buildWavyText(String text, TextStyle style) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: text.split('').asMap().entries.map((entry) {
+        return AnimatedBuilder(
+          animation: _floatController,
+          builder: (context, child) {
+            double offsetY = 6.0 * math.sin((_floatController.value * 2 * math.pi) + (entry.key * 0.5));
+            return Transform.translate(offset: Offset(0, offsetY), child: child);
+          },
+          child: Text(entry.value, style: style),
+        );
+      }).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [_darkBlueTop, _darkBlueBottom],
+                stops: [0.0, 0.7],
+              ),
+            ),
+          ),
+          
+          Positioned.fill(
+            child: SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Spacer(flex: 2),
+                  
+                  SlideTransition(
+                    position: _titleSlide,
+                    child: FadeTransition(
+                      opacity: _titleFade,
+                      child: Column(
+                        children: [
+                          _buildWavyText(
+                            'JOURNEY!',
+                            const TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.5,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          const Text(
+                            'Awaits!',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  
+                  SlideTransition(
+                    position: _imageSlide,
+                    child: FadeTransition(
+                      opacity: _imageFade,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 40),
+                        width: 260,
+                        height: 260,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: const Color(0xFF0A0E1A),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blue.withOpacity(0.1),
+                              blurRadius: 30,
+                              spreadRadius: 10,
+                            ),
+                          ],
+                        ),
+                        child: ClipOval(
+                          child: AnimatedBuilder(
+                            animation: _floatController,
+                            builder: (context, child) {
+                              return Transform.translate(
+                                offset: Offset(0, 10 * math.sin(_floatController.value * 2 * math.pi)),
+                                child: child,
+                              );
+                            },
+                            child: Image.asset(
+                              'assets/pirate_frog.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                  SlideTransition(
+                    position: _textSlide,
+                    child: FadeTransition(
+                      opacity: _textFade,
+                      child: Text(
+                        'LingoBreeze',
+                        style: TextStyle(
+                          color: _cyanTextColor,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                  const Spacer(flex: 3),
+                  
+                  SlideTransition(
+                    position: _buttonSlide,
+                    child: FadeTransition(
+                      opacity: _buttonFade,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0, left: 20, right: 20),
+                        child: ScaleTransition(
+                          scale: _pulseAnimation,
+                          child: SizedBox(
+                            width: double.infinity,
+                            height: 55,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const LanguageSelectionScreen()),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.black,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                ),
+                                elevation: 5,
+                              ),
+                              child: const Text(
+                                'Lets Get Started',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section id="language-screen" class="mb-16 scroll-mt-24">
+                <h2 class="text-3xl font-bold text-white mb-6 flex items-center gap-3">
+                    <span class="bg-teal-500/10 text-teal-400 w-10 h-10 rounded-lg flex items-center justify-center text-xl">6</span>
+                    Language Selection
+                </h2>
+                <p class="mb-4">The final screen. Complex animation where the boat sails in from the left, the speech bubble pops up, and the waves undulate. Audio: "Good bye!".</p>
+                <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="flex items-center justify-between px-4 py-2 bg-slate-900 border-b border-slate-800">
+                        <span class="text-xs font-mono text-slate-400">lib/language_selection_screen.dart</span>
+                        <button onclick="copyToClipboard('code-lang')" class="text-xs text-teal-400 hover:text-teal-300 transition cursor-pointer"><i class="fa-regular fa-copy mr-1"></i> Copy Code</button>
+                    </div>
+                    <div class="max-h-96 overflow-y-auto">
+                        <pre><code id="code-lang" class="language-dart">import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:flutter_tts/flutter_tts.dart';
+
+class LanguageSelectionScreen extends StatefulWidget {
+  const LanguageSelectionScreen({super.key});
+
+  @override
+  State<LanguageSelectionScreen> createState() => _LanguageSelectionScreenState();
+}
+
+class _LanguageSelectionScreenState extends State<LanguageSelectionScreen> with TickerProviderStateMixin {
+  static const Color _darkBlueTop = Color(0xFF050914);
+  static const Color _darkBlueBottom = Color(0xFF0B152E);
+  static const Color _tealButtonColor = Color(0xFF007979);
+
+  late AnimationController _entryController;
+  late AnimationController _boatSlideController;
+  late AnimationController _boatBobController;
+  late AnimationController _bubblePopController;
+  late AnimationController _pulseController;
+
+  late Animation<Offset> _gridSlide;
+  late Animation<double> _gridFade;
+  
+  late Animation<Offset> _buttonSlide;
+  late Animation<double> _buttonFade;
+
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _bubbleScaleAnimation;
+
+  final FlutterTts flutterTts = FlutterTts();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+
+    _gridSlide = Tween<Offset>(begin: const Offset(0, -1.5), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.6, curve: Curves.easeOutBack),
+      ),
+    );
+    _gridFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.0, 0.4, curve: Curves.easeOut),
+      ),
+    );
+
+    _buttonSlide = Tween<Offset>(begin: const Offset(0, 2.0), end: Offset.zero).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 1.0, curve: Curves.easeOutQuart),
+      ),
+    );
+    _buttonFade = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _entryController,
+        curve: const Interval(0.6, 0.8, curve: Curves.easeOut),
+      ),
+    );
+
+    _entryController.forward();
+
+    _boatSlideController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1800),
+    );
+    _boatSlideController.forward();
+
+    _boatBobController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..repeat(reverse: true);
+
+    _bubblePopController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    Future.delayed(const Duration(milliseconds: 1400), () {
+      if (mounted) _bubblePopController.forward();
+    });
+    
+    _bubbleScaleAnimation = CurvedAnimation(
+      parent: _bubblePopController,
+      curve: Curves.elasticOut,
+    );
+
+    _pulseController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+    _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05)
+        .animate(CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut));
+
+    _speakGoodbye();
+  }
+
+  Future<void> _speakGoodbye() async {
+    await flutterTts.setLanguage("en-US");
+    await flutterTts.setPitch(1.0);
+    await flutterTts.setSpeechRate(0.7);
+    await flutterTts.speak("Good bye!");
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _boatSlideController.dispose();
+    _boatBobController.dispose();
+    _bubblePopController.dispose();
+    _pulseController.dispose();
+    flutterTts.stop();
+    super.dispose();
+  }
+
+  Widget _languageItem(String text) {
+    return Expanded(
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    const double boatWidth = 160.0;
+    final double startX = -boatWidth;
+    final double endX = (screenWidth / 2) - (boatWidth / 2);
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [_darkBlueTop, _darkBlueBottom],
+                stops: [0.0, 0.7],
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 230,
+            left: 0,
+            right: 0,
+            child: AnimatedBuilder(
+              animation: Listenable.merge([_boatSlideController, _boatBobController]),
+              builder: (context, child) {
+                final double currentX = startX + (endX - startX) * CurvedAnimation(
+                  parent: _boatSlideController,
+                  curve: Curves.easeOutBack,
+                ).value;
+
+                final double currentY = 8.0 * math.sin(_boatBobController.value * math.pi);
+
+                return Transform.translate(
+                  offset: Offset(currentX, currentY),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      width: boatWidth,
+                      child: child,
+                    ),
+                  ),
+                );
+              },
+              child: Image.asset(
+                'assets/frog_in_boat.png',
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              'assets/waves.png',
+              width: screenWidth,
+              height: 220, 
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          SafeArea(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 80, 
+                  left: 30,
+                  right: 30,
+                  child: SlideTransition(
+                    position: _gridSlide,
+                    child: FadeTransition(
+                      opacity: _gridFade,
+                      child: Column(
+                        children: [
+                          Row(children: [_languageItem('हिन्दी'), _languageItem('English'), _languageItem('मराठी')]),
+                          const SizedBox(height: 30),
+                          Row(children: [_languageItem('தமிழ்'), _languageItem('اردو'), _languageItem('తెలుగు')]),
+                          const SizedBox(height: 30),
+                          Row(children: [_languageItem('ಕನ್ನಡ'), _languageItem('മലയാളം'), _languageItem('English')]),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  bottom: 370,
+                  left: 0,
+                  right: 0,
+                  child: ScaleTransition(
+                    scale: _bubbleScaleAnimation,
+                    child: AnimatedBuilder(
+                      animation: _boatBobController,
+                      builder: (context, child) {
+                        return Transform.translate(
+                          offset: Offset(0, 5.0 * math.sin(_boatBobController.value * math.pi)),
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        'assets/speech_bubble.png',
+                        height: 100,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  bottom: 50,
+                  left: 30,
+                  right: 30,
+                  child: SlideTransition(
+                    position: _buttonSlide,
+                    child: FadeTransition(
+                      opacity: _buttonFade,
+                      child: ScaleTransition(
+                        scale: _pulseAnimation,
+                        child: SizedBox(
+                          height: 55,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              debugPrint("Continue clicked!");
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _tealButtonColor,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              elevation: 8,
+                              shadowColor: Colors.black45,
+                            ),
+                            child: const Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="mt-20 pt-10 border-t border-slate-800 text-center text-slate-500">
+                <p></p>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        // Sidebar active state logic
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                links.forEach(l => {
+                    l.classList.remove('bg-slate-800', 'text-teal-400', 'border-l-4', 'border-teal-400');
+                    l.classList.add('text-slate-400');
+                });
+                this.classList.remove('text-slate-400');
+                this.classList.add('bg-slate-800', 'text-teal-400', 'border-l-4', 'border-teal-400');
+            });
+        });
+
+        // Copy to clipboard functionality
+        function copyToClipboard(elementId) {
+            const code = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(code).then(() => {
+                alert('Code copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>
